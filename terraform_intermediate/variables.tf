@@ -3,7 +3,7 @@ variable "vpc_cidr" {
   
 }
 
-variable "cidr_block_public" {
+variable "cidr_block_public" { 
   type = string
 }
 

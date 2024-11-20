@@ -8,8 +8,8 @@ data "aws_ami" "ami" {
 
 
 resource "aws_key_pair" "access_key" {
-  key_name = var.key_pair
-  public_key = file()
+  key_name = "akmaral-key"
+  public_key = file(var.key_pair)
 }
 
 
@@ -18,7 +18,8 @@ resource "aws_instance" "akmaral_resource_for_instance" {
   instance_type = var.instance_type
   associate_public_ip_address = true
   key_name = aws_key_pair.access_key.key_name 
-  security_groups = [ aws_security_group.allow_ssh_and_http.name ]
+  vpc_security_group_ids = [ aws_security_group.allow_ssh_and_http.id ]
+  subnet_id = aws_subnet.public_subnet.id
   tags = {
     Name = "akmaral_instance"
     owner = "akmaral"

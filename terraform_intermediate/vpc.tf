@@ -18,6 +18,7 @@ resource "aws_internet_gateway" "vpc_igw" {
 resource "aws_subnet" "public_subnet" {
     vpc_id = aws_vpc.vpc.id
     cidr_block = var.cidr_block_public
+    map_public_ip_on_launch = true
     availability_zone = var.availability_zone_public
     tags = {
       Name = "maral_public_subnet"
