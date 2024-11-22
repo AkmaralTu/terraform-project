@@ -1,1 +1,6 @@
 instance_type = "t2.micro"
+vpc_cidr = "10.0.0.0/16"
+cidr_block_public_subnet = "10.0.1.0/24"
+cidr_block_private_subnet = "10.0.2.0/24"
+availability_zone_public_subnet = "us-east-1a"
+availability_zone_private_subnet = "us-east-1b"
