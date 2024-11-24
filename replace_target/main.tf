@@ -14,6 +14,5 @@ resource "aws_instance" "akmaral_ins_resource" {
   instance_type = "t2.micro"
   tags = {
     Name = "maral_instance-1"
-    
   }
 }
