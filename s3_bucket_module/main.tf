@@ -3,6 +3,13 @@ resource "aws_s3_bucket" "s3_bucket" {
   tags = var.bucket_tags
 }
 
+
+resource "aws_s3_bucket_acl" "private_bucket" {
+  bucket = aws_s3_bucket.s3_bucket.id
+  acl = "private"
+}
+
+
 resource "aws_s3_bucket_versioning" "bucket_versioning" {
     bucket = aws_s3_bucket.s3_bucket.id
     versioning_configuration {
@@ -14,14 +21,14 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket_lifecycle" {
   rule {
     status = "Enabled"
     id = "delete-temp-files"
-    expiration {  # для удаления уйдет temp временные файлы через 30 дней
+    expiration {  # для удаления уйдет temp временные none touched файлы  через 30 дней
       days = 30
     }
   }
    rule {
     status = "Enabled"
     id = "archive-log-files"
-    transition {  # для архивизация уйдет лог файлы через 30 дней
+    transition {  # для архивизация уйдет лог none touched файлы через 30 дней
       days = 30
       storage_class = "GLACIER"
     }
