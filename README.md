@@ -19,3 +19,4 @@ first project in terraform
 
 
 # terraform plan/apply --target="aws_instance.instance_resource_name"
+
