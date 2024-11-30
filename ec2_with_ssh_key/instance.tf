@@ -10,10 +10,24 @@ data "aws_ami" "ami" {
   }
 }
 
+resource "tls_private_key" "tls_connector" {
+  algorithm = "RSA"
+  rsa_bits = 4096
+}
+
 resource "aws_key_pair" "access_key" {
   key_name = "akmaral-key"
-  public_key = file("my-key-pair.pub")  #ssh-keygen -t rsa -b 2048 -f my-key-pair.pem
+  public_key = tls_private_key.tls_connector.public_key_openssh ##file("my-key-pair.pub")  или ssh-keygen -t rsa -b 2048 -f my-key-pair.pem
 
+}
+
+resource "local_file" "terraform_ec2_key_file" {
+  content = tls_private_key.tls_connector.private_key_pem
+  filename = "my-key-pair.pem"
+
+  provisioner "local-exec" {
+    command = "chmod 400 my-key-pair.pem"
+  }
 }
 
 
@@ -29,7 +43,7 @@ resource "aws_instance" "ec2" {
     owner = "akmaral"
   }
 
-  provisioner "local-exec" {
-    command = "chmod 400  my-key-pair.pem"
-  }
+  # provisioner "local-exec" {
+  #   command = "chmod 400  my-key-pair.pem"
+  # }
 }

@@ -33,7 +33,7 @@ resource "aws_instance" "ec2_with_uniquename" {
     ami = data.aws_ami.ami.id
     instance_type = local.instance_type
     tags = {
-      Name = random_id.unique_name.id
+      Name = random_id.unique_name.hex
     }
 
 }
