@@ -67,3 +67,7 @@ resource "aws_route_table_association" "association_rt_igw" {
 output "public_subnet_id" {
   value = aws_subnet.public_subnet.id
 }
+
+output "vpc_id" {
+  value = aws_vpc.vpc.id
+}

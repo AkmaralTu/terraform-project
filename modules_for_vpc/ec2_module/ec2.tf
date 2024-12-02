@@ -26,6 +26,7 @@ resource "local_file" "maral_key_file" {
 }
 
 resource "aws_instance" "instance" {
+    provider = aws
     ami = data.aws_ami.ami.id
     instance_type = var.instance_type_of
     associate_public_ip_address = true
