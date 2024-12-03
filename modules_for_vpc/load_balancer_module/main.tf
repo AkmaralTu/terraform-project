@@ -47,14 +47,14 @@ resource "aws_lb_listener" "listener_for_lb" {
     fixed_response {
       status_code = 200
       content_type = "text/plain"
-      message_body = "OK"
+      message_body = "Dont worry, you are here. This site really works"
     }
   }
 } 
 
 resource "aws_route53_zone" "main" {
   name = "maralweb.online"  # Имя вашего домена
-  provider = aws
+  
 }
 
 resource "aws_route53_record" "strapi_latency" {
