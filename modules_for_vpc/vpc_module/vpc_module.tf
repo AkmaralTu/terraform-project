@@ -18,10 +18,11 @@ resource "aws_internet_gateway" "igw_vpc" {
 }
 
 resource "aws_subnet" "public_subnet" {
+    count = 2
     vpc_id = aws_vpc.vpc.id
     provider = aws
-    cidr_block = var.cidr_block_public_subnet
-    availability_zone = var.availability_zone_public_subnet
+    cidr_block = var.cidr_blocks_public_subnet[count.index]
+    availability_zone = var.availability_zones_public_subnet[count.index]
     map_public_ip_on_launch = true
     depends_on = [ aws_vpc.vpc ]
     tags = {
@@ -60,12 +61,15 @@ resource "aws_default_route_table" "rt" {
 resource "aws_route_table_association" "association_rt_igw" {
      provider = aws
   route_table_id = aws_default_route_table.rt.id
-  subnet_id = aws_subnet.public_subnet.id
+  subnet_id = aws_subnet.public_subnet[0].id
   depends_on = [ aws_subnet.public_subnet ]
 }
 
 output "public_subnet_id" {
-  value = aws_subnet.public_subnet.id
+  value = aws_subnet.public_subnet[0].id
+}
+output "public_subnet_ids" {
+  value = aws_subnet.public_subnet[*].id
 }
 
 output "vpc_id" {
