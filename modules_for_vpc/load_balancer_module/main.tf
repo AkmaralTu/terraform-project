@@ -53,7 +53,7 @@ resource "aws_lb_listener" "listener_for_lb" {
 } 
 
 resource "aws_route53_zone" "main" {
-  name = "maralweb${var.name_region}.online"  # Имя вашего домена
+  name = "maralweb.online"  # Имя вашего домена
   provider = aws
 }
 
