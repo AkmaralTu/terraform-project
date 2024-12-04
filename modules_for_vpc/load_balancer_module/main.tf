@@ -5,7 +5,7 @@ resource "aws_lb" "load_balancer" {
     load_balancer_type = "application"
     security_groups =  var.security_group_id_for_lb 
     subnets = var.public_subnets_id_for_lb
-    enable_deletion_protection = true
+    enable_deletion_protection = false
 #     access_logs {
 #     bucket  = aws_s3_bucket.lb_logs.id
 #     prefix  = "test-lb"
